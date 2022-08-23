@@ -1,0 +1,20 @@
+{
+    "name": "hexlet/code",
+    "bin": [
+        "bin/gendiff"
+    ],
+    "autoload": {
+        "psr-4": {
+            "Hexlet\\Code\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "bayanict",
+            "email": "aidar00776@gmail.com"
+        }
+    ],
+    "require": {
+        "docopt/docopt": "^1.0"
+    }
+}
