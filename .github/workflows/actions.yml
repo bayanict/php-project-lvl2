@@ -1,4 +1,4 @@
-name: PHP CUSTOM CI
+name: PHP CI
  
 on:
   push:
