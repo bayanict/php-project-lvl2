@@ -9,3 +9,6 @@ lint:
 
 test:
 	composer run-script test
+
+test-coverage:
+	XDEBUG_MODE=coverage composer run-script test -- --coverage-clover build/logs/clover.xml
