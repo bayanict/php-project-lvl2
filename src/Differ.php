@@ -72,16 +72,35 @@ function genDiff(string $firstFile, string $secondFile)
 
     $result = array_map(function ($key) use ($fileDecoded1, $fileDecoded2) {
         if (!array_key_exists($key, $fileDecoded2)) {
-            return ['key' => $key, 'type' => 'deleted', 'value' => $fileDecoded1[$key]];
+            return [
+                'key' => $key,
+                'type' => 'deleted',
+                'value' => $fileDecoded1[$key]
+            ];
         }
         if (!array_key_exists($key, $fileDecoded1)) {
-            return ['key' => $key, 'type' => 'added', 'value' => $fileDecoded2[$key]];
+            return [
+                'key' => $key,
+                'type' => 'added',
+                'value' => $fileDecoded2[$key]
+            ];
         }
 
         if ($fileDecoded1[$key] === $fileDecoded2[$key]) {
-            return ['key' => $key, 'type' => 'unchanged', 'value' => $fileDecoded1[$key]];
+            return [
+                'key' => $key,
+                'type' => 'unchanged',
+                'value' => $fileDecoded1[$key]
+            ];
         }
-        return ['key' => $key, 'type' => 'changed', 'oldValue' => $fileDecoded1[$key], 'newValue' => $fileDecoded2[$key]];
+
+        return [
+            'key' => $key,
+            'type' => 'changed',
+            'oldValue' => $fileDecoded1[$key],
+            'newValue' => $fileDecoded2[$key]
+        ];
     }, $keysDataSorted);
+
     return format($result);
 }
