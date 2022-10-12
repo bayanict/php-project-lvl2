@@ -3,6 +3,7 @@
 namespace Differ\Differ;
 
 use function Functional\sort;
+use function Differ\Parsers\parse;
 
 function format(array $data)
 {
@@ -62,10 +63,13 @@ function toString($value)
 function genDiff(string $firstFile, string $secondFile)
 {
     $fileContent1 = file_get_contents($firstFile);
-    $fileContent2 = file_get_contents($secondFile);
+    $fileExtension1 = pathinfo($firstFile, PATHINFO_EXTENSION);
 
-    $fileDecoded1 = json_decode($fileContent1, true);
-    $fileDecoded2 = json_decode($fileContent2, true);
+    $fileContent2 = file_get_contents($secondFile);
+    $fileExtension2 = pathinfo($secondFile, PATHINFO_EXTENSION);
+
+    $fileDecoded1 = parse($fileContent1, $fileExtension1);
+    $fileDecoded2 = parse($fileContent2, $fileExtension2);
 
     $keysData = array_unique(array_merge(array_keys($fileDecoded1), array_keys($fileDecoded2)));
     $keysDataSorted = sort($keysData, fn ($left, $right) => $left <=> $right);
