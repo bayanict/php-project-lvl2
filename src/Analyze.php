@@ -2,10 +2,12 @@
 
 namespace Differ\Analyze;
 
+use function Functional\sort;
+
 function analyzeFiles($data1, $data2)
 {
     $keysData = array_unique(array_merge(array_keys($data1), array_keys($data2)));
-    $keysDataSorted = sort($keysData, fn ($before, $after) => $before <=> $after);
+    $keysDataSorted = sort($keysData, fn ($left, $right) => $left <=> $right);
 
     $result = array_map(function ($key) use ($data1, $data2) {
         if (!array_key_exists($key, $data2)) {

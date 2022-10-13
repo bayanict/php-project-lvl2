@@ -41,6 +41,9 @@ function formatToStylish(array $diffTree)
                 return "{$indent}- {$node['key']}: {$formattedValueOld}" . PHP_EOL .
                        "{$indent}+ {$node['key']}: {$formattedValueNew}";
             
+            case 'branch':
+                $resultString = implode(PHP_EOL, formatToStylish($node['children']));
+                return "{$node['key']}: {" . PHP_EOL . "{$resultString}" . PHP_EOL . "}";
 
             default:
                 throw new \Exception("Incorrect node type: {$node['type']}");
@@ -59,7 +62,17 @@ function toString($value)
         return 'null';
     }
 
+    if (is_array($value)) {
+        $result = arrayToString($value);
+        return $result;
+    }
+
     return "{$value}";
+}
+
+function arrayToString($array)
+{
+    
 }
 
 function genDiff(string $firstFile, string $secondFile)
