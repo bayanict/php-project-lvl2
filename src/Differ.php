@@ -4,6 +4,7 @@ namespace Differ\Differ;
 
 use function Functional\sort;
 use function Differ\Parsers\parse;
+use function Differ\Analyze\analyzeFiles;
 
 function format(array $data)
 {
@@ -39,6 +40,7 @@ function formatToStylish(array $diffTree)
                 $formattedValueNew = toString($valueNew);
                 return "{$indent}- {$node['key']}: {$formattedValueOld}" . PHP_EOL .
                        "{$indent}+ {$node['key']}: {$formattedValueNew}";
+            
 
             default:
                 throw new \Exception("Incorrect node type: {$node['type']}");
@@ -71,40 +73,6 @@ function genDiff(string $firstFile, string $secondFile)
     $fileDecoded1 = parse($fileContent1, $fileExtension1);
     $fileDecoded2 = parse($fileContent2, $fileExtension2);
 
-    $keysData = array_unique(array_merge(array_keys($fileDecoded1), array_keys($fileDecoded2)));
-    $keysDataSorted = sort($keysData, fn ($left, $right) => $left <=> $right);
-
-    $result = array_map(function ($key) use ($fileDecoded1, $fileDecoded2) {
-        if (!array_key_exists($key, $fileDecoded2)) {
-            return [
-                'key' => $key,
-                'type' => 'deleted',
-                'value' => $fileDecoded1[$key]
-            ];
-        }
-        if (!array_key_exists($key, $fileDecoded1)) {
-            return [
-                'key' => $key,
-                'type' => 'added',
-                'value' => $fileDecoded2[$key]
-            ];
-        }
-
-        if ($fileDecoded1[$key] === $fileDecoded2[$key]) {
-            return [
-                'key' => $key,
-                'type' => 'unchanged',
-                'value' => $fileDecoded1[$key]
-            ];
-        }
-
-        return [
-            'key' => $key,
-            'type' => 'changed',
-            'oldValue' => $fileDecoded1[$key],
-            'newValue' => $fileDecoded2[$key]
-        ];
-    }, $keysDataSorted);
-
-    return format($result);
+    $tree = analyzeFiles($fileDecoded1, $fileDecoded2);
+    return format($tree);
 }
