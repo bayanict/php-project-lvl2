@@ -28,4 +28,5 @@ DOC;
 
 require('../vendor/docopt/docopt/src/docopt.php');
 $args = Docopt::handle($doc, array('version'=>'1.0'));
-print_r(genDiff($args['<firstFile>'], $args['<secondFile>']));
+
+print_r(genDiff($args['<firstFile>'], $args['<secondFile>'], $args['--format']));

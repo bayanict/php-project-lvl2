@@ -3,6 +3,7 @@
 namespace Differ\Formatters;
 
 use function Differ\Formatters\FormatStylish\formatStylishType;
+use function Differ\Formatters\FormatPlain\formatPlainType;
 
 function format(array $data, string $type): string
 {
