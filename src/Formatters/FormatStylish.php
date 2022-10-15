@@ -51,7 +51,7 @@ function formatToStylish(array $diffTree, int $depth = 0): array
     return $result;
 }
 
-function toString($value, $depth)
+function toString($value, int $depth): string
 {
     if (is_bool($value)) {
         return $value ? 'true' : 'false';
@@ -70,7 +70,7 @@ function toString($value, $depth)
     return "{$value}";
 }
 
-function convertToString(array $array, $depth)
+function convertToString(array $array, int $depth): string
 {
     $newDepth = $depth + 1;
     $keys = array_keys($array);
@@ -82,7 +82,7 @@ function convertToString(array $array, $depth)
     return implode('', $result);
 }
 
-function getTab(int $number)
+function getTab(int $number): string
 {
     return str_repeat(TAB, $number);
 }

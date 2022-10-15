@@ -2,7 +2,7 @@
 
 namespace Differ\Formatters\FormatPlain;
 
-function formatPlainType(array $data)
+function formatPlainType(array $data): string
 {
     $lines = formatToPlain($data);
     return implode(PHP_EOL, $lines);
@@ -39,7 +39,7 @@ function formatToPlain(array $diffTree, $trace = ''): array
     return array_filter($result);
 }
 
-function toString($value)
+function toString($value): string
 {
     if (is_bool($value)) {
         return $value ? 'true' : 'false';
