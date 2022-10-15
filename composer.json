@@ -10,7 +10,8 @@
             "src/Analyze.php",
             "src/Formatters.php",
             "src/Formatters/FormatStylish.php",
-            "src/Formatters/FormatPlain.php"
+            "src/Formatters/FormatPlain.php",
+            "src/Formatters/FormatJson.php"
         ]
     },
     "authors": [
