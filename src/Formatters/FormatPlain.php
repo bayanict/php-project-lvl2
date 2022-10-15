@@ -8,7 +8,7 @@ function formatPlainType(array $data): string
     return implode(PHP_EOL, $lines);
 }
 
-function formatToPlain(array $diffTree, $trace = ''): array
+function formatToPlain(array $diffTree, string $trace = ''): array
 {
     $result = array_map(function ($node) use ($trace) {
         $currentTrace = "{$trace}{$node['key']}";
@@ -39,7 +39,7 @@ function formatToPlain(array $diffTree, $trace = ''): array
     return array_filter($result);
 }
 
-function toString($value): string
+function toString(mixed $value): string
 {
     if (is_bool($value)) {
         return $value ? 'true' : 'false';
