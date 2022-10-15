@@ -1,16 +1,16 @@
 <?php
 
-namespace Differ\Format;
+namespace Differ\Formatters\FormatStylish;
 
 const TAB = '    ';
 
-function format(array $data)
+function formatStylishType(array $data)
 {
     $lines = formatToStylish($data);
     return '{' . PHP_EOL . implode(PHP_EOL, $lines) . PHP_EOL . '}';
 }
 
-function formatToStylish(array $diffTree, int $depth = 0)
+function formatToStylish(array $diffTree, int $depth = 0): array
 {
     $tab = getTab($depth);
     $newDepth = $depth + 1;
@@ -39,7 +39,7 @@ function formatToStylish(array $diffTree, int $depth = 0)
                 $formattedValueNew = toString($valueNew, $newDepth);
                 return "{$tab}  - {$node['key']}: {$formattedValueOld}" . PHP_EOL .
                        "{$tab}  + {$node['key']}: {$formattedValueNew}";
-            
+
             case 'branch':
                 $resultString = implode(PHP_EOL, formatToStylish($node['children'], $newDepth));
                 return "{$tab}    {$node['key']}: {" . PHP_EOL . "{$resultString}" . PHP_EOL . "{$tab}    }";

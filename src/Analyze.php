@@ -4,7 +4,7 @@ namespace Differ\Analyze;
 
 use function Functional\sort;
 
-function analyzeFiles($data1, $data2)
+function analyzeFiles(array $data1, array $data2): array
 {
     $keysData = array_unique(array_merge(array_keys($data1), array_keys($data2)));
     $keysDataSorted = sort($keysData, fn ($left, $right) => $left <=> $right);

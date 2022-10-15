@@ -5,9 +5,9 @@ namespace Differ\Differ;
 use function Functional\sort;
 use function Differ\Parsers\parse;
 use function Differ\Analyze\analyzeFiles;
-use function Differ\Format\format;
+use function Differ\Formatters\format;
 
-function genDiff(string $firstFile, string $secondFile)
+function genDiff(string $firstFile, string $secondFile, string $formatType = 'stylish'): string
 {
     $fileContent1 = file_get_contents($firstFile);
     $fileExtension1 = pathinfo($firstFile, PATHINFO_EXTENSION);
@@ -19,5 +19,5 @@ function genDiff(string $firstFile, string $secondFile)
     $fileDecoded2 = parse($fileContent2, $fileExtension2);
 
     $tree = analyzeFiles($fileDecoded1, $fileDecoded2);
-    return format($tree);
+    return format($tree, $formatType);
 }

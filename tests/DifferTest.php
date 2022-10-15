@@ -15,5 +15,11 @@ class DifferTest extends TestCase
 
         $resultYmlDiff = genDiff(__DIR__ . "/fixtures/file1.yml", __DIR__ . "/fixtures/file2.yml");
         $this->assertStringEqualsFile(__DIR__ . "/fixtures/correctStylish", $resultYmlDiff);
+
+        $resultJsonPlain = gendiff(__DIR__ . "/fixtures/file1.json", __DIR__ . "/fixtures/file2.json", "plain");
+        $this->assertStringEqualsFile(__DIR__ . "/fixtures/correctPlain", $resultJsonPlain);
+
+        $resultYmlPlain = gendiff(__DIR__ . "/fixtures/file1.yml", __DIR__ . "/fixtures/file2.yml", "plain");
+        $this->assertStringEqualsFile(__DIR__ . "/fixtures/correctPlain", $resultYmlPlain);
     }
 }
