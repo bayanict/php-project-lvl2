@@ -7,7 +7,8 @@
         "files": [
             "src/Differ.php",
             "src/Parsers.php",
-            "src/Analyze.php"
+            "src/Analyze.php",
+            "src/Format.php"
         ]
     },
     "authors": [

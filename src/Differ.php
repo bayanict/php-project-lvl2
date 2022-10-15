@@ -5,75 +5,7 @@ namespace Differ\Differ;
 use function Functional\sort;
 use function Differ\Parsers\parse;
 use function Differ\Analyze\analyzeFiles;
-
-function format(array $data)
-{
-    $lines = formatToStylish($data);
-    return '{' . PHP_EOL . implode(PHP_EOL, $lines) . PHP_EOL . '}';
-}
-
-function formatToStylish(array $diffTree)
-{
-    $indent = '  ';
-
-    $result = array_map(function ($node) use ($indent) {
-        switch ($node['type']) {
-            case 'deleted':
-                $value = $node['value'];
-                $formattedValue = toString($value);
-                return "{$indent}- {$node['key']}: {$formattedValue}";
-
-            case 'added':
-                $value = $node['value'];
-                $formattedValue = toString($value);
-                return "{$indent}+ {$node['key']}: {$formattedValue}";
-
-            case 'unchanged':
-                $value = $node['value'];
-                $formattedValue = toString($value);
-                return "{$indent}  {$node['key']}: {$formattedValue}";
-
-            case 'changed':
-                $valueOld = $node['oldValue'];
-                $formattedValueOld = toString($valueOld);
-                $valueNew = $node['newValue'];
-                $formattedValueNew = toString($valueNew);
-                return "{$indent}- {$node['key']}: {$formattedValueOld}" . PHP_EOL .
-                       "{$indent}+ {$node['key']}: {$formattedValueNew}";
-            
-            case 'branch':
-                $resultString = implode(PHP_EOL, formatToStylish($node['children']));
-                return "{$node['key']}: {" . PHP_EOL . "{$resultString}" . PHP_EOL . "}";
-
-            default:
-                throw new \Exception("Incorrect node type: {$node['type']}");
-        }
-    }, $diffTree);
-    return $result;
-}
-
-function toString($value)
-{
-    if (is_bool($value)) {
-        return $value ? 'true' : 'false';
-    }
-
-    if (is_null($value)) {
-        return 'null';
-    }
-
-    if (is_array($value)) {
-        $result = arrayToString($value);
-        return $result;
-    }
-
-    return "{$value}";
-}
-
-function arrayToString($array)
-{
-    
-}
+use function Differ\Format\format;
 
 function genDiff(string $firstFile, string $secondFile)
 {
