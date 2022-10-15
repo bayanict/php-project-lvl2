@@ -12,6 +12,8 @@ function format(array $data, string $type): string
             return formatStylishType($data);
         case 'plain':
             return formatPlainType($data);
+        case 'json':
+            return json_encode($data);
         default:
             throw new \Exception("Incorrect format type: {$type}");
     }
