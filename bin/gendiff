@@ -24,9 +24,8 @@ Options:
   -h --help                     Show this screen
   -v --version                  Show version
   --format <fmt>                Report format [default: stylish]
+
 DOC;
 
-require('../vendor/docopt/docopt/src/docopt.php');
 $args = Docopt::handle($doc, array('version'=>'1.0'));
-
 print_r(genDiff($args['<firstFile>'], $args['<secondFile>'], $args['--format']));
